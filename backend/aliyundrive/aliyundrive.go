@@ -74,7 +74,7 @@ you can find this by checking request headers in the Chrome console`,
 			Name:     config.ConfigEncoding,
 			Help:     config.ConfigEncodingHelp,
 			Advanced: true,
-			Default:  encoder.Base | encoder.EncodeInvalidUtf8,
+			Default:  encoder.EncodeWin | encoder.EncodeSlash | encoder.EncodeBackSlash | encoder.EncodeInvalidUtf8, //  /*?:<>\"|
 		}},
 	})
 }
@@ -323,6 +323,7 @@ func (f *Fs) List(ctx context.Context, dir string) (entries fs.DirEntries, err e
 
 	for _, _node := range nodes {
 		node := _node
+		node.Name = f.opt.Enc.ToStandardName(node.Name)
 		remote := path.Join(dir, node.Name)
 		if node.IsDirectory() {
 			// cache the directory ID for later lookups
@@ -659,6 +660,7 @@ func (o *Object) Update(ctx context.Context, in io.Reader, src fs.ObjectInfo, op
 
 	// Create the directory for the object if it doesn't exist
 	leaf, directoryId, err := o.fs.dirCache.FindPath(ctx, o.Remote(), true)
+	leaf = o.fs.opt.Enc.FromStandardName(leaf)
 	if err != nil {
 		return err
 	}
