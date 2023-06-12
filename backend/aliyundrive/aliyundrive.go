@@ -615,7 +615,7 @@ func (o *Object) Open(ctx context.Context, options ...fs.OpenOption) (in io.Read
 	headers := map[string]string{}
 	fs.OpenOptionAddHeaders(options, headers)
 	err = o.fs.pacer.Call(func() (bool, error) {
-		in, err = o.fs.srv.Open(ctx, o.node.NodeId, headers)
+		in, err = o.fs.srv.Open(ctx, o.node, headers)
 		return o.fs.shouldRetry(ctx, err)
 	})
 	if err != nil {
