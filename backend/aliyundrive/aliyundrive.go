@@ -32,6 +32,7 @@ const (
 
 // retryErrorCodes is a slice of error codes that we will retry
 var retryErrorCodes = []int{
+	401, // Unauthorized
 	423, // Locked
 	429, // Too Many Requests.
 	500, // Internal Server Error
