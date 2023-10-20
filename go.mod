@@ -80,6 +80,8 @@ require (
 )
 
 require (
+	github.com/K265/aliyundrive-go v0.0.0-20230612061414-e1914906dd87 // indirect
+	github.com/dustinxie/ecc v0.0.0-20210511000915-959544187564 // indirect
 	cloud.google.com/go/compute v1.20.1 // indirect
 	cloud.google.com/go/compute/metadata v0.2.3 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/internal v1.3.0 // indirect
